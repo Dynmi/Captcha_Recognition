@@ -1,0 +1,7 @@
+{
+    "train_data_path":"/sample/",
+    "charset" : "0123456789abcdefghijklmnopqrstuvwxyz",
+    "max_chars" : 4,
+    "img_height" : 60,
+    "img_width" : 100
+}
