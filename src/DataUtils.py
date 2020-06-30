@@ -20,7 +20,9 @@ width = config["img_width"]
 height = config["img_height"]
 output_size = max_chars*len(charset)
 
-
+'''
+generate image files  using ImageCaptcha 
+'''
 def gen_imgs(src="./sample/", count=40000, width=100, height=60, image_suffix="png"):
     if not os.path.exists(src):
        os.makedirs(src)
@@ -39,13 +41,18 @@ def gen_imgs(src="./sample/", count=40000, width=100, height=60, image_suffix="p
         if i%256==0:
             print("Generate image -->> {}".format(i + 1))
 
-
+'''
+convert RGB image to gray image
+'''
 def convert2gray(img):
         if len(img.shape) > 2:
             r, g, b = img[:, :, 0], img[:, :, 1], img[:, :, 2]
             img = 0.2989 * r + 0.5870 * g + 0.1140 * b
         return np.expand_dims(img,axis=2)
 
+'''
+convert text to vector
+'''
 def text2vec(text):
     text_len = len(text)
     if text_len > max_chars: raise ValueError('验证码最长{}个字符'.format(max_chars))
@@ -55,6 +62,9 @@ def text2vec(text):
         vec[idx] = 1
     return vec
 
+'''
+convert vector to text
+'''
 def vec2text(vec):
     text=""
     s=0
@@ -64,6 +74,9 @@ def vec2text(vec):
         s+=len(charset)
     return text
 
+'''
+get images and labels from source files
+'''
 def get_captcha_text_image(src,img_name,zoom=0):
     label = img_name.split("_")[0]
     img= Image.open(src+img_name)
@@ -72,6 +85,9 @@ def get_captcha_text_image(src,img_name,zoom=0):
     img_array = convert2gray(img_array) /255
     return text2vec(label), img_array 
 
+'''
+get batch data for training
+'''
 def get_batch(src, BATCH_SIZE=64):
     X,Y = [],[]
     img_list = os.listdir(src)

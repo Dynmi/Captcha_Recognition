@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np 
 import matplotlib.pyplot as plt 
 from src.model import captcha_loss
+from src.DataUtils import get_batch
 import json 
 import pickle 
 
@@ -17,7 +18,9 @@ train_acc_collect = []
 VALID_X = pickle.load(open("./valid_data/valid_x.pkl","rb"))
 VALID_Y = pickle.load(open("./valid_data/valid_y.pkl","rb"))
 
-
+'''
+Compare pred and y, calculate and return the accuracy rate 
+'''
 def get_acc(pred,y):
     max_idx_p = tf.argmax(tf.reshape(pred, [-1, max_chars, len(char_set)]), 2)  
     max_idx_l = tf.argmax(tf.reshape(y, [-1, max_chars, len(char_set)]), 2)  
@@ -25,7 +28,9 @@ def get_acc(pred,y):
     correct_pred = tf.equal(max_idx_p, max_idx_l)
     return tf.reduce_mean(tf.reduce_min(tf.cast(correct_pred, tf.float32), axis=1))
 
-
+'''
+train the model
+'''
 def train_model(model, n_steps, CYCLE = 5000, BATCH_SIZE=128, lr=0.00025,show_plot=1):
   model.compile(optimizer=tf.keras.optimizers.Adam(lr=lr),loss=captcha_loss,metrics=[get_acc])
   global S_ID

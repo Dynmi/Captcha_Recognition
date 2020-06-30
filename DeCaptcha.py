@@ -16,6 +16,10 @@ height = config["img_height"]
 
 model = tf.keras.models.load_model('./saved_model/capt_net90.h5',compile=False)
 
+
+'''
+decode single image
+'''
 def dec_img(img_path):
     img = Image.open(img_path)
     img = img.resize((width, height),Image.ANTIALIAS)
@@ -25,6 +29,9 @@ def dec_img(img_path):
     Y = model.predict(np.array(X))
     return DataUtils.vec2text(Y[0])
 
+'''
+decode batch images
+'''
 def dec_batch(img_src):
     X = []
     for i in os.listdir(img_src):
