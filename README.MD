@@ -1,5 +1,5 @@
 # Captcha Recgnition
- A fast and easy way to recognize captcha image, the cnn-model file only have 5 layers, with an accuracy of 90%.
+ A fast and easy way to recognize captcha image, the cnn-model only has 5 layers, with an accuracy of 90%.
 - **End to end**, all you need is one neural network
 - Low delay, **1ms** for one image
 - Lite model, **only 5 layers**
@@ -17,7 +17,7 @@
 
 </br>
 
-## Package
+## Dependencies
 - tensorflow2
 - numpy 
 - Pillow
