@@ -17,7 +17,7 @@
 
 </br>
 
-## Package
+## Dependencies
 - tensorflow2
 - numpy 
 - Pillow
